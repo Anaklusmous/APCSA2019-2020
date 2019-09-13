@@ -20,6 +20,9 @@ public class DoMath {
 		//PART 2
 		System.out.println(Calculate.isDivisibleBy(8,2));
 		System.out.println(Calculate.absValue(-9));
+		System.out.println(Calculate.max(5, 7));
+		System.out.println(Calculate.max(5, 7, 9));
+		System.out.println(Calculate.min(5, 7));
 	}
 
 }

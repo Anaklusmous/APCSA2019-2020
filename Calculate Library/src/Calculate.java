@@ -59,8 +59,7 @@ public class Calculate {
 	public static String toMixedNum(int num, int den) {
 		int whole = num / den;
 		num %= den;
-		String answer = whole + "_" + num + "/" + den;
-		return answer;
+		return whole + "_" + num + "/" + den;
 	}
 	//A call to foil multiplies two binomials to convert it into standard form
 	//It accepts 4 integers and 1 string and returns a string
@@ -92,6 +91,39 @@ public class Calculate {
 		}
 		else {
 			return number;
+		}
+	}
+	//A call to max determines the the maximum out of two doubles
+	//Accept 2 doubles and returns 1 double
+	public static double max(double num1, double num2) {
+		if (num1 > num2) {
+			return num1;
+		}
+		else {
+			return num2;
+		}
+	}
+	//A call to max determines the the maximum out of three doubles
+	//Accept 3 doubles and returns 1 double
+	public static double max(double num1, double num2, double num3) {
+		if (num1 > num2 && num1 > num3) {
+			return num1;
+		}
+		else if (num2 > num1 && num2 > num3){
+			return num2;
+		}
+		else {
+			return num3;
+		}
+	}
+	//A call to max determines the the maximum out of two integers
+	//Accept 2 integers and returns 1 integer
+	public static int min(int num1, int num2) {
+		if (num1 < num2) {
+			return num1;
+		}
+		else {
+			return num2;
 		}
 	}
 }
