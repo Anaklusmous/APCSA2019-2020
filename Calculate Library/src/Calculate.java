@@ -116,7 +116,7 @@ public class Calculate {
 			return num3;
 		}
 	}
-	//A call to max determines the the maximum out of two integers
+	//A call to min determines the the smallest out of two integers
 	//Accept 2 integers and returns 1 integer
 	public static int min(int num1, int num2) {
 		if (num1 < num2) {
@@ -124,6 +124,50 @@ public class Calculate {
 		}
 		else {
 			return num2;
+		}
+	}
+	//A call to round2 rounds a double to 2 decimal places
+	//Accept 1 double and returns a double
+	public static double round2(double number) {
+		number = (number *100);
+		number = (int)(number + 0.5);
+		return number / 100;
+	}
+	
+//PART 3
+
+	//A call to round2 rounds a double to 2 decimal places
+	//Accept 1 double and returns a double
+	public static double exponent(double base, int exp) {
+		double answer = 1;
+		for (int i = 0; i < exp; i++) {
+			answer *= base;
+		}
+		return answer;
+	}
+	//A call to round2 rounds a double to 2 decimal places
+	//Accept 1 double and returns a double
+	public static int factorial(int number) {
+		int answer = 1;
+		for (int i = 1; i <= number; i++) {
+			answer *= i;
+		}
+		return answer;
+	}
+	//A call to round2 rounds a double to 2 decimal places
+	//Accept 1 double and returns a double
+	public static boolean isPrime(int integer) {
+		int divisibleCounter = 0;
+		for (int i = 1; i <= integer; i++) {
+			if (Calculate.isDivisibleBy(integer, i)) {
+				divisibleCounter += 1;
+			};
+		}
+		if (divisibleCounter > 2) {
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
 }
