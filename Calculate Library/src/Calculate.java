@@ -159,15 +159,43 @@ public class Calculate {
 	public static boolean isPrime(int integer) {
 		int divisibleCounter = 0;
 		for (int i = 1; i <= integer; i++) {
-			if (Calculate.isDivisibleBy(integer, i)) {
+			if (Calculate.isDivisibleBy(integer, i) == true) {
 				divisibleCounter += 1;
 			};
 		}
 		if (divisibleCounter > 2) {
-			return true;
-		}
-		else {
 			return false;
 		}
+		else {
+			return true;
+		}
+	}
+	//A call to round2 rounds a double to 2 decimal places
+	//Accept 1 double and returns a double
+	public static int gcf(int integer1, int integer2) {
+		int commonFactor = 0;
+		double bigger = Calculate.max(integer1, integer2);
+		double smaller = Calculate.min(integer1, integer2);
+		for (int i = 1; i <= (int)bigger; i++) {
+			if (Calculate.isDivisibleBy((int)bigger, i) == true) {
+				if (Calculate.isDivisibleBy((int)smaller, i) == true) {
+					commonFactor = i;
+				}
+			}
+		}
+		return commonFactor;
+	}
+	//A call to round2 rounds a double to 2 decimal places
+	//Accept 1 double and returns a double
+	public static double sqrt(double number) {
+		double educatedGuess = 0;
+		for (int i = 1; Calculate.square(i) < number; i++) {
+			educatedGuess = i;
+		}
+		while (((educatedGuess * educatedGuess) - number) < .005) {
+			educatedGuess = 0.5 * (number / educatedGuess + educatedGuess);
+			System.out.println(educatedGuess);
+		}
+		return Calculate.round2(educatedGuess);
 	}
 }
