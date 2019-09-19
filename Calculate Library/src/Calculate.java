@@ -73,10 +73,13 @@ public class Calculate {
 	
 	//PART 2
 	
-	//A call to isDivisibleBy etermines whether one number is divisible by another
+	//A call to isDivisibleBy determines whether one number is divisible by another
 	//Accepts 2 integers and returns a boolean
-	public static boolean isDivisibleBy(int bigger, int smaller) {
-		if (bigger % smaller == 0) {
+	public static boolean isDivisibleBy(int mainNum, int factor) {
+		if (factor < 0) {
+			throw new IllegalArgumentException("factor must be greater than 0"); 
+		}
+		if (mainNum % factor == 0) {
 			return true;
 		}
 		else {
@@ -136,30 +139,36 @@ public class Calculate {
 	
 //PART 3
 
-	//A call to round2 rounds a double to 2 decimal places
-	//Accept 1 double and returns a double
+	//A call to exponent raises a number to an exponent
+	//Accept 1 double and 1 integer and returns a double
 	public static double exponent(double base, int exp) {
 		double answer = 1;
+		if (exp < 0) {
+			throw new IllegalArgumentException("Exponent must be greater than 0"); 
+		}
 		for (int i = 0; i < exp; i++) {
 			answer *= base;
 		}
 		return answer;
 	}
-	//A call to round2 rounds a double to 2 decimal places
-	//Accept 1 double and returns a double
+	//A call to factorial finds the factorial of a number
+	//Accept 1 integer and returns an integer
 	public static int factorial(int number) {
 		int answer = 1;
+		if (number < 0) {
+			throw new IllegalArgumentException("Number must be greater than 0"); 
+		}
 		for (int i = 1; i <= number; i++) {
 			answer *= i;
 		}
 		return answer;
 	}
-	//A call to round2 rounds a double to 2 decimal places
-	//Accept 1 double and returns a double
+	//A call to isPrime determines if a number is a prime number
+	//Accept 1 integer and returns a boolean
 	public static boolean isPrime(int integer) {
 		int divisibleCounter = 0;
 		for (int i = 1; i <= integer; i++) {
-			if (Calculate.isDivisibleBy(integer, i) == true) {
+			if (isDivisibleBy(integer, i) == true) {
 				divisibleCounter += 1;
 			};
 		}
@@ -170,32 +179,31 @@ public class Calculate {
 			return true;
 		}
 	}
-	//A call to round2 rounds a double to 2 decimal places
-	//Accept 1 double and returns a double
+	//A call to gcf determines the greatest common factor of two numbers
+	//Accept 2 integers and return an integer
 	public static int gcf(int integer1, int integer2) {
-		int commonFactor = 0;
-		double bigger = Calculate.max(integer1, integer2);
-		double smaller = Calculate.min(integer1, integer2);
+		int commonFactor = 1;
+		double bigger = max(integer1, integer2);
+		double smaller = min(integer1, integer2);
 		for (int i = 1; i <= (int)bigger; i++) {
-			if (Calculate.isDivisibleBy((int)bigger, i) == true) {
-				if (Calculate.isDivisibleBy((int)smaller, i) == true) {
+			if (isDivisibleBy((int)bigger, i) == true) {
+				if (isDivisibleBy((int)smaller, i) == true) {
 					commonFactor = i;
 				}
 			}
 		}
 		return commonFactor;
 	}
-	//A call to round2 rounds a double to 2 decimal places
+	//A call to sqrt square roots a number
 	//Accept 1 double and returns a double
 	public static double sqrt(double number) {
-		double educatedGuess = 0;
-		for (int i = 1; Calculate.square(i) < number; i++) {
-			educatedGuess = i;
+		double educatedGuess = number / 2;
+		if (number < 0) {
+			throw new IllegalArgumentException("Number must be greater than 0"); 
 		}
-		while (((educatedGuess * educatedGuess) - number) < .005) {
+		while (((educatedGuess * educatedGuess) - number) >= .005) {
 			educatedGuess = 0.5 * (number / educatedGuess + educatedGuess);
-			System.out.println(educatedGuess);
 		}
-		return Calculate.round2(educatedGuess);
+		return round2(educatedGuess);
 	}
 }
