@@ -144,12 +144,17 @@ public class Calculate {
 	public static double exponent(double base, int exp) {
 		double answer = 1;
 		if (exp < 0) {
-			throw new IllegalArgumentException("Exponent must be greater than 0"); 
+			 
 		}
-		for (int i = 0; i < exp; i++) {
+		for (int i = 0; i < absValue(exp); i++) {
 			answer *= base;
 		}
-		return answer;
+		if (exp < 0) {
+			return 1 / answer;
+		}
+		else {
+			return answer;
+		}
 	}
 	//A call to factorial finds the factorial of a number
 	//Accept 1 integer and returns an integer
