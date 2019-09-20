@@ -132,8 +132,15 @@ public class Calculate {
 	//A call to round2 rounds a double to 2 decimal places
 	//Accept 1 double and returns a double
 	public static double round2(double number) {
-		number = (number *100);
-		number = (int)(number + 0.5);
+		number = (number * 100);
+		if (number < 0) {
+			number = (number - 0.5);
+			number = (int)number;
+		}
+		else {
+			number = (number + 0.5);
+			number = (int)number;
+		}
 		return number / 100;
 	}
 	
@@ -143,9 +150,6 @@ public class Calculate {
 	//Accept 1 double and 1 integer and returns a double
 	public static double exponent(double base, int exp) {
 		double answer = 1;
-		if (exp < 0) {
-			 
-		}
 		for (int i = 0; i < absValue(exp); i++) {
 			answer *= base;
 		}
@@ -206,9 +210,27 @@ public class Calculate {
 		if (number < 0) {
 			throw new IllegalArgumentException("Number must be greater than 0"); 
 		}
-		while (((educatedGuess * educatedGuess) - number) >= .005) {
+		while (((educatedGuess * educatedGuess) - number) >= .005 || ((educatedGuess * educatedGuess) - number) <= -.005) {
 			educatedGuess = 0.5 * (number / educatedGuess + educatedGuess);
 		}
 		return round2(educatedGuess);
+	}
+	//A call to quadForm finds the roots of a quadratic equation
+	//Accepts 3 integers and returns 1 String
+	public static String quadForm(int a, int b, int c) {
+		double root1 = 0;
+		double root2 = 0;
+		if (discriminant(a, b, c) < 0) {
+			return "no real roots";
+		}
+		else if (discriminant(a, b, c) > 0) {
+			root1 = (-b + sqrt(discriminant(a, b, c)))/ (2 * a);
+			root2 = (-b - sqrt(discriminant(a, b, c)))/ (2 * a);
+			return round2(root1) + " and " + round2(root2);
+		}
+		else {
+			root1 = -b / (2 * a);
+			return round2(root1) + "";
+		}
 	}
 }
