@@ -29,8 +29,8 @@ public class ProcessingNumbers {
 				evenSum += next;
 				if (evenFound = false) {
 					maxEven = next;
+					evenFound = true;
 				}
-				evenFound = true;
 				if (next > maxEven) {
 					maxEven = next;
 				}
