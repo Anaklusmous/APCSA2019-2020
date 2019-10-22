@@ -76,7 +76,7 @@ public class Calculate {
 	//A call to isDivisibleBy determines whether one number is divisible by another
 	//Accepts 2 integers and returns a boolean
 	public static boolean isDivisibleBy(int mainNum, int factor) {
-		if (factor < 0) {
+		if (factor == 0) {
 			throw new IllegalArgumentException("factor must be greater than 0"); 
 		}
 		if (mainNum % factor == 0) {
@@ -109,15 +109,17 @@ public class Calculate {
 	//A call to max determines the the maximum out of three doubles
 	//Accept 3 doubles and returns 1 double
 	public static double max(double num1, double num2, double num3) {
-		if (num1 > num2 && num1 > num3) {
-			return num1;
+		double greatest = num1;
+		if (num2 > num1) {
+			greatest = num2;
+			if (num3 > num2) {
+				greatest = num3;
+			}
 		}
-		else if (num2 > num1 && num2 > num3){
-			return num2;
+		else if (num3 > num1){
+			greatest = num3;
 		}
-		else {
-			return num3;
-		}
+		return greatest;
 	}
 	//A call to min determines the the smallest out of two integers
 	//Accept 2 integers and returns 1 integer
@@ -150,14 +152,24 @@ public class Calculate {
 	//Accept 1 double and 1 integer and returns a double
 	public static double exponent(double base, int exp) {
 		double answer = 1;
-		for (int i = 0; i < absValue(exp); i++) {
-			answer *= base;
-		}
-		if (exp < 0) {
-			return 1 / answer;
+		if (exp == 0) {
+			if (base == 0) {
+				throw new IllegalArgumentException("0 cannot be raised to the 0 power.");
+			}
+			else {
+				return 1.0;
+			}
 		}
 		else {
-			return answer;
+			for (int i = 0; i < absValue(exp); i++) {
+			answer *= base;
+			}
+			if (exp < 0) {
+				return 1 / answer;
+			}
+			else {
+				return answer;
+			}
 		}
 	}
 	//A call to factorial finds the factorial of a number
@@ -226,7 +238,15 @@ public class Calculate {
 		else if (discriminant(a, b, c) > 0) {
 			root1 = (-b + sqrt(discriminant(a, b, c)))/ (2 * a);
 			root2 = (-b - sqrt(discriminant(a, b, c)))/ (2 * a);
-			return round2(root1) + " and " + round2(root2);
+			if (root1 < root2) {
+				return round2(root1) + " and " + round2(root2);
+			}
+			else if (root2 < root1) {
+				return round2(root2) + " and " + round2(root1);
+			}
+			else {
+				return round2(root1) + " and " + round2(root2);
+			}
 		}
 		else {
 			root1 = -b / (2 * a);
