@@ -2,45 +2,18 @@ import java.util.*;
 public class HourglassMaker {
 	public static void main(String[] args) {
 		Scanner console = new Scanner(System.in);
-		System.out.print("What size hourglass do you want? ");
-		int size = console.nextInt();
-		int subtractCount = 2;
-		firstAndLast(size);
-		for (int line = 1; line <= size - 1; line++) {
-			if (line <= size / 2) {
-				for (int space = 1; space <= line; space++) {
-					System.out.print(" ");
-				}
-			}
-			else {
-				for (int space = line - subtractCount; space >= 1; space--) {
-					System.out.print(" ");
-				}
-				subtractCount += 2;
-			}
-			if (line < size / 2) {
-				System.out.print("\\");
-			}
-			else if (line == size / 2){
-				System.out.print("|");
-			}
-			else {
-				System.out.print("/");
-			}
-			for (int colon = 1; colon <= Math.abs(-2 * line + size); colon++) {
-				System.out.print(":");
-			}
-			if (line < size / 2) {
-				System.out.println("/");
-			}
-			else if (line == size / 2){
-				System.out.println("|");
-			}
-			else {
-				System.out.println("\\");
-			}
+		String keepGoing = "";
+		while(!keepGoing.equals("quit")) {
+			System.out.print("What size hourglass do you want? ");
+			int size = console.nextInt();
+			firstAndLast(size);
+			topHalf(size);
+			bottomHalf(size);
+			firstAndLast(size);
+			System.out.print("Continue? Type \"quit\" to stop and \"y\" to continue. ");
+			keepGoing = console.next();
+			keepGoing = keepGoing.toLowerCase();
 		}
-		firstAndLast(size);
 		console.close();
 	}
 	
@@ -50,5 +23,35 @@ public class HourglassMaker {
 			System.out.print("\"");
 		}
 		System.out.println("|");
+	}
+	public static void topHalf(double size) {
+		for (int line = 1; line <= (int)(size / 2 + .5); line++) {
+			for (int space = 1; space <= line; space++) {
+				System.out.print(" ");
+			}
+			if (line == (int)(size / 2 + .5)) {
+				System.out.println("||");
+			}
+			else {
+				System.out.print("\\");
+				for (int colon = 1; colon <= -2 * line + size; colon++) {
+					System.out.print(":");
+				}
+				System.out.println("/");
+		
+			}
+		}
+	}
+	public static void bottomHalf(double size) {
+		for (int line = (int)(size / 2 - .5); line >= 1; line--) {
+			for (int space = 1; space <= line; space++) {
+				System.out.print(" ");
+			}
+				System.out.print("/");
+				for (int colon = 1; colon <= -2 * line + size; colon++) {
+					System.out.print(":");
+				}
+				System.out.println("\\");
+		}
 	}
 }
