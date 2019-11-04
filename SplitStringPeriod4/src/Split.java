@@ -1,3 +1,4 @@
+
 /* Harrison Dong
  * October 21, 2019
  * Splits a string using the String.split() method
@@ -16,8 +17,8 @@ public class Split {
 		System.out.println(Arrays.toString(outputArray4));
 		
 		//Official code
-		String sandwich1 = "applespineapplesbreadlettucetomatobaconmayohambreadcheese";
-		String sandwich2 = "bread bread";
+		String sandwich1 = "applespineapplesbreadlettucetomatobaconmayohambreadcheeseapplespineapplesbreadlettucetomatobaconmayohambreadcheese";
+		String sandwich2 = "apples pineapples bread lettuce tomato bacon mayo ham bread cheese apples pineapples bread lettuce tomato bacon mayo ham bread cheese";
 		System.out.println(Part1(sandwich1));
 		System.out.println(Part2(sandwich2));
 	}
@@ -38,21 +39,35 @@ public class Split {
 
 	*/
 public static String Part1(String sandwich) {
-		if (sandwich.indexOf("bread") > 0) {
+		int breadCounter = 0;
+		String sandwichContents = "";
+		if (sandwich.indexOf("bread") >= 0) {
+			breadCounter++;
 			String partSandwich = sandwich.substring(sandwich.indexOf("bread") + 5);
-			if (partSandwich.indexOf("bread") > 0) {
-				String[] sandwichContents = sandwich.split("bread");
-				System.out.println(sandwichContents[1]);
-				return sandwichContents[1];
+			if (partSandwich.indexOf("bread") >= 0) {
+				breadCounter++;
+				while(partSandwich.indexOf("bread") >= 0) {
+					partSandwich = partSandwich.substring(partSandwich.indexOf("bread") + 5);
+					if (partSandwich.indexOf("bread") >= 0) {
+						breadCounter++;
+					}
+				}
+				String[] sandwichContentsArray = sandwich.split("bread");
+				for (int i = 1; i <= breadCounter - 1; i++) {
+					sandwichContents += sandwichContentsArray[i];
+					if (i != breadCounter - 1) {
+						sandwichContents += "bread";
+					}
+				}
+				return sandwichContents;
 			}
 			else {
-				System.out.println("Error: Not a sandwich");
+				return "Error: Not a sandwich";
 			}
 		}
 		else {
-			System.out.println("Error: Not a sandwich");
+			return "Error: Not a sandwich";
 		}
-		return "";
 	}
 
 	//Your task pt 2:
@@ -71,11 +86,16 @@ public static String Part1(String sandwich) {
 
 	*/
 public static String Part2(String sandwich) {
-	String[] partSandwich = Part1(sandwich).split(" ");
-	for (int i = 0; i < partSandwich.length; i++) {
-		System.out.print(partSandwich[i]);
+	if (Part1(sandwich) == "Error: Not a sandwich") {
+		return Part1(sandwich);
 	}
-	return "";
+	else {
+		String[] partSandwich = Part1(sandwich).split(" ");
+		for (int i = 0; i < partSandwich.length; i++) {
+			System.out.print(partSandwich[i]);
+		}
+		return "";
+	}
 }
 }
 /*NOTES
