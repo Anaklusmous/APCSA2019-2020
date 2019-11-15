@@ -14,6 +14,7 @@ public class FracCalc {
     		System.out.println("Continue? Enter \"quit\" to quit and \"y\" to continue");
     		stop = console.nextLine();
     	}
+    	console.close();
     }
     
     // ** IMPORTANT ** DO NOT DELETE THIS FUNCTION.  This function will be used to test your code
@@ -28,7 +29,114 @@ public class FracCalc {
     { 
         // TODO: Implement this function to produce the solution to the input
         String[] fracOpFrac = input.split(" ");
-        return fracOpFrac[2];
+        String[] wholeNumDen1 = new String[3];
+        String[] wholeNumDen2 = new String[3];
+        fracSplit(fracOpFrac[0], wholeNumDen1);
+        fracSplit(fracOpFrac[2], wholeNumDen2);
+        int[] wholeNumDenInts1 = {Integer.parseInt(wholeNumDen1[0]), Integer.parseInt(wholeNumDen1[1]), Integer.parseInt(wholeNumDen1[2])};
+        int[] wholeNumDenInts2 = {Integer.parseInt(wholeNumDen2[0]), Integer.parseInt(wholeNumDen2[1]), Integer.parseInt(wholeNumDen2[2])};
+        if(fracOpFrac[1].equals("+") || fracOpFrac[1].equals("-")) {
+        	return addSubtract(wholeNumDenInts1, wholeNumDenInts2, fracOpFrac[1]);
+        }
+        else if (fracOpFrac[1].equals("*") || fracOpFrac[1].equals("/")) {
+        	return multiplyDivide(wholeNumDenInts1, wholeNumDenInts2, fracOpFrac[1]);
+        }
+        else {
+        	return "ERROR: Input is in an invalid format." + fracOpFrac[1];
+        }
+    }
+    public static void fracSplit(String operand, String[] ans) {
+    	String whole = "";
+        String num = "";
+        String den = "";
+        if(operand.contains("_") == false) {
+        	if (operand.contains("/") == false) {
+        		whole = operand;
+        		num = "0";
+        		den = "1";
+        	}
+        	else {
+        		String[] numDen = operand.split("/");
+        		whole = "0";
+        		num = numDen[0];
+    	        den = numDen[1];
+        	}
+        }
+        else {
+	        String[] wholeFrac = operand.split("_");
+	        whole = wholeFrac[0];
+	        String[] numDen = wholeFrac[1].split("/");
+	        num = numDen[0];
+	        den = numDen[1];
+        }
+        ans[0] = whole;
+        ans[1] = num;
+        ans[2] = den;
+    }
+    public static String addSubtract(int[] mixedFrac1, int[] mixedFrac2, String operator) {
+    	if (mixedFrac1[0] < 0) {
+    		mixedFrac1[1] *= -1;
+    	}
+    	if (mixedFrac2[0] < 0) {
+    		mixedFrac2[1] *= -1;
+    	}
+    	int improperNum1 = mixedFrac1[0] * mixedFrac1[2] + mixedFrac1[1];
+    	int improperNum2 = mixedFrac2[0] * mixedFrac2[2] + mixedFrac2[1];
+    	int totalNum = 0;
+    	int newDen = mixedFrac1[2];
+    	if(operator.equals("-")) {
+    		improperNum2 *= -1;
+    	}
+    	if(mixedFrac1[2] != mixedFrac2[2]) {
+    		newDen *= mixedFrac2[2];
+    		improperNum1 *= mixedFrac2[2];
+    		improperNum2 *= mixedFrac1[2];
+    	}
+    	totalNum = improperNum1 + improperNum2;
+    	return reduceAndConvert(totalNum, newDen);
+    }
+    public static String multiplyDivide(int[] mixedFrac1, int[] mixedFrac2, String operator) {
+    	int totalNum = (mixedFrac1[0] * mixedFrac1[2] + mixedFrac1[1]) * (mixedFrac2[0] * mixedFrac2[2] + mixedFrac2[1]);
+    	int newDen = mixedFrac1[2] * mixedFrac2[2];
+    	if(operator.equals("/")) {
+    		totalNum = newDen;
+    		newDen = totalNum;
+    	}
+    	if(newDen == 1) {
+    		return totalNum + "";
+    	}
+    	else {
+    		return totalNum + "/" + newDen;
+    	}
+    }
+    public static String reduceAndConvert(int totalNum, int newDen) {
+    	int biggerPart = 0;
+    	if (totalNum > newDen) {
+    		biggerPart = totalNum;
+    	}
+    	else {
+    		biggerPart = newDen;
+    	}
+    	for (int i = biggerPart; i > 0; i-- ) {
+    		if (totalNum % i == 0 && newDen % i == 0) {
+    			totalNum /= i;
+    			newDen /= i;
+    		}
+    	}
+    	if(newDen == 1) {
+    		return totalNum + "";
+    	}
+    	else if (totalNum < newDen) {
+    		if (totalNum == 0) {
+    			return 0 + ""; //Fix THis
+    		}
+    		else {
+    			return totalNum + "/" + newDen;
+    		}
+    	}
+    	else {
+    		return totalNum/newDen + "_" + totalNum % newDen + "/" + newDen;
+    	}
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
