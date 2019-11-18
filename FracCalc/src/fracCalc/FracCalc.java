@@ -102,12 +102,7 @@ public class FracCalc {
     		totalNum = newDen;
     		newDen = totalNum;
     	}
-    	if(newDen == 1) {
-    		return totalNum + "";
-    	}
-    	else {
-    		return totalNum + "/" + newDen;
-    	}
+    	return reduceAndConvert(totalNum, newDen);
     }
     public static String reduceAndConvert(int totalNum, int newDen) {
     	int biggerPart = 0;
@@ -126,16 +121,16 @@ public class FracCalc {
     	if(newDen == 1) {
     		return totalNum + "";
     	}
-    	else if (totalNum < newDen) {
+    	else if (Math.abs(totalNum) < newDen) {
     		if (totalNum == 0) {
-    			return 0 + ""; //Fix THis
+    			return totalNum + ""; //Fix THis
     		}
     		else {
     			return totalNum + "/" + newDen;
     		}
     	}
     	else {
-    		return totalNum/newDen + "_" + totalNum % newDen + "/" + newDen;
+    		return totalNum/newDen + "_" + Math.abs(totalNum % newDen) + "/" + newDen;
     	}
     }
 
