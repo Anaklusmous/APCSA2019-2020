@@ -71,7 +71,17 @@ public class ArrayListPracticeLab {
 	 *  For example, if the input list is: {"to", "be", "or", "not", "to", "be", "hamlet"} 
 	 *  The returned list should contain {"be", "to", "not", "or", "be", "to", "hamlet"}
 	 */
-	
+	public static ArrayList<String> swapPairs(ArrayList<String> arr) {
+		String temp = "";
+		int i = 0;
+		while (i < arr.size() - 1) {
+			temp = arr.get(i + 1);
+			arr.set(i + 1, arr.get(i));
+			arr.set(i, temp);
+			i += 2;
+		}
+		return arr;
+	}
 	
 	
 	
@@ -85,7 +95,18 @@ public class ArrayListPracticeLab {
 	 * any Strings of even length.
 	 * removeEvenLength should not change the input ArrayList.
 	 */
-	
+	public static ArrayList<String> removeEvenLength(ArrayList<String> arr) {
+		int size = arr.size();
+		boolean anyEvens = false;
+		for (int i = 0; i < size; i++) {
+			if (arr.get(i).length() % 2 == 0) {
+				arr.remove(i);
+				size--;
+				i--;
+			}
+		} 
+		return arr;
+	}
 	
 	
 	
@@ -100,7 +121,12 @@ public class ArrayListPracticeLab {
 	 * is called, it should contain the values {"how", "how", "are", "are", "you?", "you?"} 
 	 * after the method finishes executing.
 	 */
-	
+	public static void doubleList(ArrayList<String> arr) {
+		int size = arr.size();
+		for(int i = 0; i < size * 2; i += 2) {
+			arr.add(i + 1, arr.get(i));
+		}
+	}
 	
 	
 	
@@ -140,8 +166,11 @@ public class ArrayListPracticeLab {
 		String[] test_swap_2 = {"I", "love", "programming!"};
 		String[] test_swap_3 = {"don't move me"};
 		String[] test_swap_4 = {};
-
 		
+		System.out.println(swapPairs(convertArrayToList(test_swap_1)));
+		System.out.println(swapPairs(convertArrayToList(test_swap_2)));
+		System.out.println(swapPairs(convertArrayToList(test_swap_3)));
+		System.out.println(swapPairs(convertArrayToList(test_swap_4)));
 		
 
 		// To test your removeEvenLength method, convert the following to ArrayLists of Strings and 
@@ -154,7 +183,9 @@ public class ArrayListPracticeLab {
 		String[] test_rem_2 = {"Did", "you", "solve", "it", "or", "what?"};
 		String[] test_rem_3 = {};
 				
-		
+		System.out.println(removeEvenLength(convertArrayToList(test_rem_1)));
+		System.out.println(removeEvenLength(convertArrayToList(test_rem_2)));
+		System.out.println(removeEvenLength(convertArrayToList(test_rem_3)));
 		
 		
 		// To test your doubleList method, convert the following to ArrayLists of Strings and 
@@ -166,6 +197,18 @@ public class ArrayListPracticeLab {
 		String[] test_doub_1 = {"how", "are", "you?"};
 		String[] test_doub_2 = {"One string only"};		
 		String[] test_doub_3 = {};		
+		
+		ArrayList<String> test_doub_1_list = convertArrayToList(test_doub_1);
+		ArrayList<String> test_doub_2_list = convertArrayToList(test_doub_2);
+		ArrayList<String> test_doub_3_list = convertArrayToList(test_doub_3);
+		
+		doubleList(test_doub_1_list);
+		doubleList(test_doub_2_list);
+		doubleList(test_doub_3_list);
+		
+		System.out.println(test_doub_1_list);
+		System.out.println(test_doub_2_list);
+		System.out.println(test_doub_3_list);
 		
 	}
 		
