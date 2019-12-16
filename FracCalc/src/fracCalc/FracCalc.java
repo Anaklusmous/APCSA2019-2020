@@ -50,7 +50,7 @@ public class FracCalc {
         	return "ERROR: Input is in an invalid format." + fracOpFrac[1];//Error handling Extra Credit
         }
     }
-    public static void fracSplit(String operand, String[] ans) {
+    public static void fracSplit(String operand, String[] ans) {//splits fraction into whole number, numerator, and denominator
     	String whole = "";
         String num = "";
         String den = "";
@@ -78,7 +78,7 @@ public class FracCalc {
         ans[1] = num;
         ans[2] = den;
     }
-    public static String addSubtract(int[] mixedFrac1, int[] mixedFrac2, String operator) {//Won't work with EC
+    public static String addSubtract(int[] mixedFrac1, int[] mixedFrac2, String operator) {//operations for adding or subtracting
     	if (mixedFrac1[0] < 0) {
     		mixedFrac1[1] *= -1;
     	}
@@ -100,7 +100,7 @@ public class FracCalc {
     	totalNum = improperNum1 + improperNum2;
     	return reduceAndConvert(totalNum, newDen);
     }
-    public static String multiplyDivide(int[] mixedFrac1, int[] mixedFrac2, String operator) {//Won't work with EC, unless call this each time
+    public static String multiplyDivide(int[] mixedFrac1, int[] mixedFrac2, String operator) {//Operations for multiplying or dividing
     	if(mixedFrac1[0] < 0) {
     		mixedFrac1[1] *= -1;
     	}
@@ -123,7 +123,7 @@ public class FracCalc {
     	}
     	return reduceAndConvert(num1 * num2, den1 * den2);
     }
-    public static String reduceAndConvert(int totalNum, int newDen) {
+    public static String reduceAndConvert(int totalNum, int newDen) {//reduces improper fraction and converts to mixed number, returns mixed number string
     	int biggerPart = 0;
     	if (totalNum > newDen) {
     		biggerPart = totalNum;
