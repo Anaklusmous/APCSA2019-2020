@@ -3,9 +3,9 @@
  * Takes in expressions with fractions
  * Practice use of String.split
  */
-package fracCalc;
+package oldFracCalc;
 import java.util.*;
-public class FracCalc {
+public class OldFracCalc {
 
     public static void main(String[] args) {
         // TODO: Read the input from the user and call produceAnswer with an equation
